@@ -1,31 +1,25 @@
-
-import { useState } from 'react';
 import './App.css';
-import MinhaLista from './components/MinhaLista';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Et from './components/pages/Et';
+import Home from './components/pages/Home';
+import Telephone from './components/pages/Telephone';
+
 
 function App() {
-  const [mensagens, setMensagens] = useState([])
-
-  const getAdvice = async () =>{
-    
-
-    const result = await fetch('https://api.adviceslip.com/advice')
-    const data = await result.json()
-    const frase = data.slip.advice
-    console.log(frase)
-    setMensagens(oldItens => [...oldItens,frase])
-  
-  }
-
-
   return (
-    <div className="App">
-      <h1>Renderizando Lista</h1>
-      <MinhaLista xx={mensagens}/>
+    <Router>
+        <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/et">ET</Link></li>
+            <li><Link to="/telephone">Telephone</Link></li>
+        </ul>
+        <Routes>
+            <Route exact path='/' element={<Home/>}> </Route>
+            <Route path='/et' element={<Et/>}> </Route>
+            <Route path='/telephone' element={<Telephone/>}> </Route>
+        </Routes>
+    </Router>
 
-      <button onClick={getAdvice}>Adicionar</button>
-    </div>
-  );
-}
+)}
 
 export default App;
